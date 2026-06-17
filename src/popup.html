@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scenario Capture</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <h1>Scenario Capture</h1>
+          <p id="statusLabel">Prêt</p>
+        </div>
+        <span class="badge" id="stepCount">0 étape</span>
+      </header>
+
+      <section class="panel">
+        <label>
+          Titre du scénario
+          <input id="titleInput" type="text" />
+        </label>
+        <label>
+          Application
+          <input id="appInput" type="text" placeholder="Nom application" />
+        </label>
+        <label>
+          Environnement
+          <input id="envInput" type="text" placeholder="Recette, préprod..." />
+        </label>
+      </section>
+
+      <section class="toolbar" aria-label="Contrôles d'enregistrement">
+        <button id="startButton" class="primary" type="button">Démarrer</button>
+        <button id="stopButton" type="button">Pause</button>
+        <button id="resetButton" type="button">Réinitialiser</button>
+      </section>
+
+      <section class="panel">
+        <h2>Assertions</h2>
+        <label>
+          Type
+          <select id="assertionKind">
+            <option value="visible">Élément visible</option>
+            <option value="text">Texte attendu</option>
+            <option value="value">Valeur attendue</option>
+            <option value="url">URL attendue</option>
+            <option value="title">Titre attendu</option>
+          </select>
+        </label>
+        <label>
+          Valeur attendue
+          <input id="expectedInput" type="text" placeholder="Ex: Confirmation envoyée" />
+        </label>
+        <div class="toolbar compact">
+          <button id="pickAssertionButton" type="button">Cibler dans la page</button>
+          <button id="addPageAssertionButton" type="button">Ajouter page</button>
+        </div>
+      </section>
+
+      <section class="panel list-panel">
+        <h2>Capture</h2>
+        <ol id="stepsList" class="list"></ol>
+      </section>
+
+      <section class="panel list-panel">
+        <h2>Assertions ajoutées</h2>
+        <ol id="assertionsList" class="list"></ol>
+      </section>
+
+      <section class="toolbar">
+        <button id="copyButton" type="button">Copier JSON</button>
+        <button id="downloadButton" class="primary" type="button">Exporter</button>
+      </section>
+    </main>
+    <script src="./popup.js"></script>
+  </body>
+</html>
