@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Scenario Capture MVP",
+  "description": "Extension interne pour capturer des scénarios métier et exporter un brouillon structuré pour Playwright.",
+  "version": "0.1.0",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_title": "Scenario Capture",
+    "default_popup": "src/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content-recorder.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
