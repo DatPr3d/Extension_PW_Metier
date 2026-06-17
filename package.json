@@ -4,6 +4,6 @@
   "private": true,
   "description": "Extension Chrome/Edge interne pour capturer des scénarios métier et exporter un brouillon Playwright.",
   "scripts": {
-    "check": "node --check src/background.js && node --check src/content-recorder.js && node --check src/popup.js"
+    "check": "node --check src/recorder-engine.js && node --check src/export-service.js && node --check src/background.js && node --check src/content-recorder.js && node --check src/popup.js"
   }
 }

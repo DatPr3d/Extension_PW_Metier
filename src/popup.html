@@ -8,70 +8,144 @@
   </head>
   <body>
     <main class="app">
-      <header class="topbar">
-        <div>
-          <h1>Scenario Capture</h1>
-          <p id="statusLabel">Prêt</p>
+      <header class="topbar panel-shell">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <span class="eyebrow">Recorder m&eacute;tier</span>
+            <h1>Scenario Capture</h1>
+          </div>
         </div>
-        <span class="badge" id="stepCount">0 étape</span>
+        <div class="status-stack">
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Changer de thème">Sombre</button>
+          <span class="record-pill" id="recordPill">En pause</span>
+          <p id="statusLabel">Pr&ecirc;t</p>
+        </div>
       </header>
 
-      <section class="panel">
-        <label>
-          Titre du scénario
-          <input id="titleInput" type="text" />
-        </label>
-        <label>
-          Application
-          <input id="appInput" type="text" placeholder="Nom application" />
-        </label>
-        <label>
-          Environnement
-          <input id="envInput" type="text" placeholder="Recette, préprod..." />
-        </label>
-      </section>
-
-      <section class="toolbar" aria-label="Contrôles d'enregistrement">
-        <button id="startButton" class="primary" type="button">Démarrer</button>
+      <section class="commandbar panel-shell" aria-label="Contr&ocirc;les d'enregistrement">
+        <button id="startButton" class="primary" type="button">Enregistrer</button>
         <button id="stopButton" type="button">Pause</button>
-        <button id="resetButton" type="button">Réinitialiser</button>
+        <button id="resetButton" type="button">Nouveau</button>
       </section>
 
-      <section class="panel">
-        <h2>Assertions</h2>
-        <label>
-          Type
-          <select id="assertionKind">
-            <option value="visible">Élément visible</option>
-            <option value="text">Texte attendu</option>
-            <option value="value">Valeur attendue</option>
-            <option value="url">URL attendue</option>
-            <option value="title">Titre attendu</option>
-          </select>
-        </label>
-        <label>
-          Valeur attendue
-          <input id="expectedInput" type="text" placeholder="Ex: Confirmation envoyée" />
-        </label>
-        <div class="toolbar compact">
-          <button id="pickAssertionButton" type="button">Cibler dans la page</button>
-          <button id="addPageAssertionButton" type="button">Ajouter page</button>
+      <section class="summary" aria-label="R&eacute;sum&eacute; du sc&eacute;nario">
+        <div class="metric selected">
+          <span>Actions</span>
+          <strong id="stepCount">0</strong>
+        </div>
+        <div class="metric">
+          <span>Contr&ocirc;les</span>
+          <strong id="assertionCount">0</strong>
+        </div>
+        <div class="metric">
+          <span>Qualit&eacute;</span>
+          <strong id="confidenceSummary">&Agrave; capter</strong>
         </div>
       </section>
 
-      <section class="panel list-panel">
-        <h2>Capture</h2>
-        <ol id="stepsList" class="list"></ol>
+      <nav class="tabs panel-shell" aria-label="Vues du recorder">
+        <button class="tab is-active" type="button" data-tab="journeyPanel">Parcours</button>
+        <button class="tab" type="button" data-tab="exportPanel">Export</button>
+      </nav>
+
+      <section id="journeyPanel" class="tab-panel is-active">
+        <section class="panel scenario-panel">
+          <div class="section-head">
+            <h2>Sc&eacute;nario m&eacute;tier</h2>
+            <p>Contexte lisible par les devs et QA</p>
+          </div>
+          <label>
+            Titre du sc&eacute;nario
+            <input id="titleInput" type="text" />
+          </label>
+          <label>
+            Environnement
+            <input id="envInput" type="text" placeholder="Recette, pr&eacute;prod..." />
+          </label>
+        </section>
+
+        <section class="panel assertion-composer">
+          <div class="section-head">
+            <h2>Ajouter un contr&ocirc;le</h2>
+            <p>Associer une v&eacute;rification au parcours captur&eacute;</p>
+          </div>
+          <div class="control-kind-field">
+            <span class="field-label">Type de contr&ocirc;le</span>
+            <input id="assertionKind" type="hidden" value="visible" />
+            <div class="control-kind-grid" role="group" aria-label="Type de contr&ocirc;le">
+              <button class="control-kind is-active" type="button" data-assertion-kind="visible">
+                <span>Visible</span>
+                <small>&Eacute;l&eacute;ment pr&eacute;sent</small>
+              </button>
+              <button class="control-kind" type="button" data-assertion-kind="text">
+                <span>Texte</span>
+                <small>Contenu attendu</small>
+              </button>
+              <button class="control-kind" type="button" data-assertion-kind="value">
+                <span>Valeur</span>
+                <small>Champ renseign&eacute;</small>
+              </button>
+              <button class="control-kind" type="button" data-assertion-kind="url">
+                <span>URL</span>
+                <small>Page attendue</small>
+              </button>
+              <button class="control-kind" type="button" data-assertion-kind="title">
+                <span>Titre</span>
+                <small>Titre de page</small>
+              </button>
+            </div>
+          </div>
+          <label>
+            R&eacute;sultat attendu
+            <input id="expectedInput" type="text" placeholder="Ex: Confirmation envoy&eacute;e" />
+          </label>
+          <div class="commandbar compact no-pad">
+            <button id="pickAssertionButton" class="primary-soft" type="button">Cibler sur la page</button>
+            <button id="addPageAssertionButton" type="button">Ajouter depuis la page</button>
+          </div>
+        </section>
+
+        <section class="panel list-panel">
+          <div class="section-head row">
+            <div>
+              <h2>Parcours captur&eacute;</h2>
+              <p>Actions et contr&ocirc;les dans l'ordre de capture</p>
+            </div>
+            <span class="hint">Recorder</span>
+          </div>
+          <ol id="stepsList" class="list timeline"></ol>
+        </section>
       </section>
 
-      <section class="panel list-panel">
-        <h2>Assertions ajoutées</h2>
-        <ol id="assertionsList" class="list"></ol>
-      </section>
+      <section id="exportPanel" class="tab-panel">
+        <section class="panel">
+          <div class="section-head row">
+            <div>
+              <h2>Aper&ccedil;u Playwright</h2>
+              <p>Support de reprise pour dev/QA</p>
+            </div>
+            <span class="hint">Brouillon</span>
+          </div>
+          <div class="crx-recorder">
+            <div class="crx-code-editor">
+              <div id="codeGutter" class="code-gutter" aria-hidden="true"></div>
+              <pre class="code-preview"><code id="codePreview" class="syntax-code"></code></pre>
+            </div>
+          </div>
+        </section>
 
-      <section class="toolbar">
-        <button id="copyButton" type="button">Copier JSON</button>
-        <button id="downloadButton" class="primary" type="button">Exporter</button>
+        <section class="panel">
+          <div class="section-head">
+            <h2>Transmission</h2>
+            <p>Exporter le dossier de capture structur&eacute;</p>
+          </div>
+          <div class="commandbar compact no-pad three-actions">
+            <button id="copyButton" type="button">Copier JSON</button>
+            <button id="copyCodeButton" type="button">Copier code</button>
+            <button id="downloadButton" class="primary" type="button">Exporter ZIP</button>
+          </div>
+        </section>
       </section>
     </main>
     <script src="./popup.js"></script>

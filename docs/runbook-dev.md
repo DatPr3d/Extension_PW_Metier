@@ -1,26 +1,25 @@
-# Runbook développeur
+# Runbook d?veloppeur
 
 ## Charger l'extension
 
 1. Ouvrir `chrome://extensions` ou `edge://extensions`.
-2. Activer le mode développeur.
-3. Cliquer sur "Charger l'extension non empaquetée".
-4. Sélectionner le dossier racine du projet.
+2. Activer le mode d?veloppeur.
+3. Cliquer sur "Charger l'extension non empaquet?e".
+4. S?lectionner le dossier racine du projet.
 
 ## Parcours MVP
 
-1. Ouvrir l'application à tester.
-2. Ouvrir le popup "Scenario Capture".
-3. Renseigner le titre, l'application et l'environnement.
-4. Cliquer sur "Démarrer".
-5. Réaliser le parcours métier.
-6. Mettre en pause.
-7. Ajouter les assertions attendues:
-   - "Cibler dans la page" pour sélectionner un élément.
-   - "Ajouter page" pour une assertion d'URL ou de titre.
-8. Exporter le JSON et le transmettre à l'équipe dev/QA.
+1. Ouvrir l'application ? tester.
+2. Cliquer sur l'ic?ne de l'extension pour ouvrir le panneau "Scenario Capture".
+3. Dans `Parcours`, renseigner le titre et l'environnement.
+4. Cliquer sur "Enregistrer".
+5. R?aliser le parcours m?tier en gardant le panneau ouvert.
+6. Ajouter les contr?les attendus directement dans `Parcours`:
+   - "Cibler sur la page" pour s?lectionner un ?l?ment.
+   - "Ajouter depuis la page" pour une assertion d'URL ou de titre.
+7. Dans `Export`, relire l'aper?u Playwright et le log locator, puis transmettre le JSON ? l'?quipe dev/QA.
 
-## Vérifications locales
+## V?rifications locales
 
 ```powershell
 node --check src/background.js
@@ -28,10 +27,11 @@ node --check src/content-recorder.js
 node --check src/popup.js
 ```
 
-## Limites assumées du MVP
+## Limites assum?es du MVP
 
-- Pas de génération automatique de fichier `.spec.ts`.
+- Pas de g?n?ration automatique de fichier `.spec.ts`.
 - Pas d'authentification ni de synchronisation serveur.
-- Pas de capture réseau ou de données applicatives internes.
-- Les sélecteurs restent des propositions; ils doivent être revus.
-- Les scénarios multi-onglets et iframes complexes sont hors MVP.
+- Pas de capture r?seau ou de donn?es applicatives internes.
+- Les s?lecteurs restent des propositions; ils doivent ?tre revus.
+- Les sc?narios multi-onglets et iframes complexes sont hors MVP.
+- Le panneau lat?ral est utilis? quand le navigateur le supporte; sinon l'extension ouvre une fen?tre persistante.
